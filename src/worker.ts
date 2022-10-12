@@ -1,35 +1,39 @@
 import { Application, Assets, Sprite } from "@pixi/webworker";
-import bunnyUrl from "./bunny.png";
 
-self.onmessage = async (e) => {
-  // Recieve OffscreenCanvas from index.js
-  const { width, height, resolution, view } = e.data;
+// Represents a bunny sprite
+class Bunny extends Sprite {
+  speed: number = 0;
+}
+
+// Handle external post messages from main thread
+self.onmessage = async ({ data: options }) => {
 
   // The application will create a renderer using WebGL, if possible,
-  // with a fallback to a canvas render. It will also setup the ticker
-  // and the root stage PIXI.Container
-  const app = new Application({ width, height, resolution, view });
+  // with a fallback to a canvas render
+  const app = new Application({ ...options });
 
   // load the texture we need
-  const texture = await Assets.load(bunnyUrl);
+  const bunnyUrl = new URL('./bunny.png', import.meta.url);
+  const texture = await Assets.load(bunnyUrl.href);
 
-  // This creates a texture from a 'bunny.png' image
-  const bunny = new Sprite(texture);
+  // Create a collection of bunnies
+  const bunnies = (new Array(1000).fill(null)).map(() => {
+    const bunny = new Bunny(texture);
+    bunny.speed = (Math.random() * 0.1) - 0.05;
+    bunny.anchor.set(0.5);
+    bunny.rotation = Math.random() * Math.PI * 2;
+    bunny.position.set(
+      Math.random() * app.screen.width,
+      Math.random() * app.screen.height
+    );
+    return bunny;
+  });
+  app.stage.addChild(...bunnies);
 
-  // Setup the position of the bunny
-  bunny.x = app.renderer.width / 2;
-  bunny.y = app.renderer.height / 2;
-
-  // Rotate around the center
-  bunny.anchor.x = 0.5;
-  bunny.anchor.y = 0.5;
-
-  // Add the bunny to the scene we are building
-  app.stage.addChild(bunny);
-
-  // Listen for frame updates
+  // // Listen for frame updates
   app.ticker.add(() => {
-    // each frame we spin the bunny around a bit
-    bunny.rotation += 0.01;
+    bunnies.forEach(bunny => {
+      bunny.rotation += bunny.speed;
+    });
   });
 };
