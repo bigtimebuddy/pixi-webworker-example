@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "source": "src/index.html",
+  "source": "./src/index.html",
   "browserslist": "last 2 Chrome versions",
   "scripts": {
     "types": "tsc -noEmit",
@@ -17,8 +17,9 @@
     "@pixi/webworker": "^7.0.0-X"
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "npm-run-all": "^4.1.5",
-    "parcel": "^2.7.0",
+    "parcel": "~2.5.0",
     "querystring-es3": "^0.2.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.3"

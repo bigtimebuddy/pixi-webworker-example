@@ -1,6 +1,7 @@
 import { Application, Assets, Sprite } from "@pixi/webworker";
+import bunnyUrl from './bunny.png';
 
-// Represents a bunny sprite
+// Represents a bunny sprite another
 class Bunny extends Sprite {
   speed: number = 0;
 }
@@ -13,8 +14,7 @@ self.onmessage = async ({ data: options }) => {
   const app = new Application({ ...options });
 
   // load the texture we need
-  const bunnyUrl = new URL('./bunny.png', import.meta.url);
-  const texture = await Assets.load(bunnyUrl.href);
+  const texture = await Assets.load(bunnyUrl);
 
   // Create a collection of bunnies
   const bunnies = (new Array(1000).fill(null)).map(() => {

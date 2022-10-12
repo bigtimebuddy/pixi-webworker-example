@@ -2,6 +2,8 @@
 
 Simple example how to implement `@pixi/webworker` using PixiJS 7+ using HTMLCanvasElement's [transferControlToOffscreen](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/transferControlToOffscreen).
 
+[**View demo**](https://mattkarl.com/pixi-webworker-example/index.html)
+
 ### Advantages
 
 * Render in another thread is fast and doesn't block the main thread
