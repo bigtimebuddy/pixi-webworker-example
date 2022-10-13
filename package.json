@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "source": "./src/index.html",
-  "browserslist": "last 2 Chrome versions",
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions"
+  ],
   "scripts": {
     "types": "tsc -noEmit",
     "start": "parcel --open",
