@@ -11,7 +11,7 @@ self.onmessage = async ({ data: options }) => {
 
   // The application will create a renderer using WebGL, if possible,
   // with a fallback to a canvas render
-  const app = new Application({ ...options });
+  const app = new Application({ ...options, hello: true });
 
   // load the texture we need
   const texture = await Assets.load(bunnyUrl);
